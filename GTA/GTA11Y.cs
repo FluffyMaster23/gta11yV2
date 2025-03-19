@@ -123,6 +123,7 @@ locations.Add(new Location("Vinewood sign", new GTA.Math.Vector3(711.362f, 1198.
 			locations.Add(new Location("LS Government Facility", new GTA.Math.Vector3(2522.98f, -384.436f, 92.9928f)));
 			locations.Add(new Location("CHILIAD MOUNTAIN STATE WILDERNESS", new GTA.Math.Vector3(2994.917f, 2774.16f, 42.33663f)));
 				locations.Add(new Location("Beaker's Garage", new GTA.Math.Vector3(116.3748f, 6621.362f, 31.6078f)));
+locations.Add(new Location("LAMAR'S HOUSE", new GTA.Math.Vector3(-460.61f, -1693.88f, 18.92f)));
 
 foreach (VehicleHash v in Enum.GetValues(typeof(VehicleHash)))
 			{
