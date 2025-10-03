@@ -1,14 +1,14 @@
-﻿		using GTA;
+﻿using GTA;
 using GTA.Native;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-		using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
-using DavyKager;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using Newtonsoft.Json;
+using DavyKager;
 
 namespace GrandTheftAccessibility
 {
@@ -30,6 +30,11 @@ namespace GrandTheftAccessibility
 		private long targetTicks;
 		private long drivingTicks;
 		private bool keys_disabled = false;
+		
+		// Additional scripts
+		private PauseMenuMap pauseMenuMap;
+		private TaxiAnnouncements taxiAnnouncements;
+		private MoneyPickup moneyPickup;
 
 		private int locationMenuIndex = 0;
 		private int spawnMenuIndex= 0;
@@ -42,18 +47,18 @@ namespace GrandTheftAccessibility
 		private int settingsMenuIndex = 0;
 		private List <Setting> settingsMenu = new List<Setting>();
 
+		// NAudio fields for audio feedback
 		private WaveOutEvent out1;
 		private WaveOutEvent out2;
 		private WaveOutEvent out3;
 		private WaveOutEvent out11;
 		private WaveOutEvent out12;
-
+		
 		private AudioFileReader tped;
 		private AudioFileReader tvehicle;
 		private AudioFileReader tprop;
 		private SignalGenerator alt;
 		private SignalGenerator pitch;
-
 		private bool[] headings = new bool[8];
 		private bool climbing = false;
 		private bool shifting = false;
@@ -84,6 +89,11 @@ namespace GrandTheftAccessibility
 			this.KeyDown += onKeyDown;
 			Tolk.Load();
 			Tolk.Speak("Mod Ready");
+
+			// Initialize additional scripts
+			pauseMenuMap = new PauseMenuMap();
+			taxiAnnouncements = new TaxiAnnouncements();
+			moneyPickup = new MoneyPickup();
 
 			currentWeapon = Game.Player.Character.Weapons.Current.Hash.ToString();
 			string[] lines = System.IO.File.ReadAllLines("scripts/hashes.txt");
@@ -152,7 +162,7 @@ foreach (VehicleHash v in Enum.GetValues(typeof(VehicleHash)))
 			driveMenu.Add("Drive Rushed. ");
 			driveMenu.Add("Drive Wrecklessly. ");
 
-
+			// NAudio initialization for audio feedback
 			tped = new AudioFileReader(@"scripts/tped.wav");
 			tvehicle = new AudioFileReader(@"scripts/tvehicle.wav");
 			tprop = new AudioFileReader(@"scripts/tprop.wav");
@@ -162,7 +172,7 @@ foreach (VehicleHash v in Enum.GetValues(typeof(VehicleHash)))
 			out11 = new WaveOutEvent();
 			out12 = new WaveOutEvent();
 			out1.Init(tped);
-						out2.Init(tvehicle);
+			out2.Init(tvehicle);
 			out3.Init(tprop);
 			alt = new SignalGenerator();
 			out11.Init(alt);
@@ -411,9 +421,9 @@ if (getSetting("announceZones") == 1)
 					targetTicks = DateTime.Now.Ticks;
 					if (Game.Player.TargetedEntity.EntityType == EntityType.Ped && !Game.Player.TargetedEntity.IsDead)
 					{
-						out1.Stop();
+						/*out1.Stop();
 						tped.Position = 0;
-						out1.Play();
+						out1.Play();*/
 					}
 
 					if (Game.Player.TargetedEntity.EntityType == EntityType.Ped && !Game.Player.TargetedEntity.IsDead)

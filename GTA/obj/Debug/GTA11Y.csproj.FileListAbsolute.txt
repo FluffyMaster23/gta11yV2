@@ -1,0 +1,2 @@
+C:\Users\drago\repo\gta11yV2\GTA\obj\Debug\GTA11Y.csproj.AssemblyReference.cache
+C:\Users\drago\repo\gta11yV2\GTA\obj\Debug\GTA11Y.csproj.CoreCompileInputs.cache

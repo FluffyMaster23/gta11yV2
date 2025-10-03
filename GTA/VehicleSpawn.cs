@@ -11,7 +11,7 @@ namespace GrandTheftAccessibility
     class VehicleSpawn : IComparable
     {
     public string name;
-        public VehicleHash id;
+        public GTA.VehicleHash id;
 
         public int CompareTo(object obj)
         {
@@ -20,7 +20,7 @@ namespace GrandTheftAccessibility
         }
 
 
-        public VehicleSpawn(string name, VehicleHash id)
+        public VehicleSpawn(string name, GTA.VehicleHash id)
         {
             this.name = name;
             this.id = id;
